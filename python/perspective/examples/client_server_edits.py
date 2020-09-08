@@ -7,16 +7,15 @@ import tornado.web
 import tornado.ioloop
 import pandas as pd
 
-sys.path.insert(1, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(1, os.path.join(os.path.dirname(__file__), ".."))
 from perspective import Table, PerspectiveManager, PerspectiveTornadoHandler
 
 
 class MainHandler(tornado.web.RequestHandler):
-
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_header("Access-Control-Allow-Headers", "x-requested-with")
-        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 
     def get(self):
         self.render("client_server_edits.html")
@@ -37,11 +36,18 @@ def make_app():
     MANAGER.host_table("data_source_one", TABLE)
     MANAGER.host_view("view_one", TABLE.view())
 
-    return tornado.web.Application([
-        (r"/", MainHandler),
-        # create a websocket endpoint that the client Javascript can access
-        (r"/websocket", PerspectiveTornadoHandler, {"manager": MANAGER, "check_origin": True})
-    ], websocket_ping_interval=15)
+    return tornado.web.Application(
+        [
+            (r"/", MainHandler),
+            # create a websocket endpoint that the client Javascript can access
+            (
+                r"/websocket",
+                PerspectiveTornadoHandler,
+                {"manager": MANAGER, "check_origin": True},
+            ),
+        ],
+        websocket_ping_interval=15,
+    )
 
 
 if __name__ == "__main__":

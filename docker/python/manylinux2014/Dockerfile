@@ -1,4 +1,4 @@
-# *****************************************************************************
+###############################################################################
 #
 # Copyright (c) 2020, the Perspective Authors.
 #
@@ -34,9 +34,9 @@ RUN cp -arf /opt/python/cp38-cp38/* /usr/local/
 ENV PATH=/usr/local/bin:$PATH
 
 # Install dependencies
-RUN python3.6 -m pip install numpy scipy pybind11 cython codecov mock flake8 pytest pytest-cov traitlets ipywidgets faker psutil
-RUN python3.7 -m pip install numpy scipy pybind11 cython codecov mock flake8 pytest pytest-cov traitlets ipywidgets faker psutil
-RUN python3.8 -m pip install numpy scipy pybind11 cython codecov mock flake8 pytest pytest-cov traitlets ipywidgets faker psutil
+RUN python3.6 -m pip install numpy scipy pybind11 cython codecov mock black pytest pytest-cov traitlets ipywidgets faker psutil
+RUN python3.7 -m pip install numpy scipy pybind11 cython codecov mock black pytest pytest-cov traitlets ipywidgets faker psutil
+RUN python3.8 -m pip install numpy scipy pybind11 cython codecov mock black pytest pytest-cov traitlets ipywidgets faker psutil
 
 # Install Auditwheel - not available on Python 2
 RUN python3.6 -m pip install --ignore-installed auditwheel

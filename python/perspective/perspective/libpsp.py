@@ -34,8 +34,10 @@ try:
     make_computations()
 except ImportError:
     __is_libpsp__ = False
-    critical("Failed to import C++ bindings for Perspective "
-             "probably as it could not be built for your architecture "
-             "(check install logs for more details).\n",
-             exc_info=True)
+    critical(
+        "Failed to import C++ bindings for Perspective "
+        "probably as it could not be built for your architecture "
+        "(check install logs for more details).\n",
+        exc_info=True,
+    )
     critical("You can still use `PerspectiveWidget` in client mode using JupyterLab.")

@@ -51,7 +51,6 @@ data = [{"a": i, "b": i * 0.5, "c": str(i)} for i in range(10)]
 
 # @mark.skipif(six.PY2, reason="Requires Python 3")
 class TestAsync(object):
-
     @classmethod
     def setup_class(cls):
         cls.loop = tornado.ioloop.IOLoop()
@@ -84,11 +83,7 @@ class TestAsync(object):
         SENTINEL = AsyncSentinel(0)
 
     def test_async_queue_process(self):
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl = Table({"a": int, "b": float, "c": str})
         manager = PerspectiveManager()
         manager._set_queue_process(TestAsync.wrapped_queue_process)
         manager.host(tbl)
@@ -104,16 +99,8 @@ class TestAsync(object):
         tbl.delete()
 
     def test_async_multiple_managers_queue_process(self):
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
-        tbl2 = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl = Table({"a": int, "b": float, "c": str})
+        tbl2 = Table({"a": int, "b": float, "c": str})
         manager = PerspectiveManager()
         manager2 = PerspectiveManager()
 
@@ -148,16 +135,8 @@ class TestAsync(object):
             SENTINEL_2.set(SENTINEL_2.get() - 1)
             state_manager.call_process(table_id)
 
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
-        tbl2 = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl = Table({"a": int, "b": float, "c": str})
+        tbl2 = Table({"a": int, "b": float, "c": str})
         manager = PerspectiveManager()
         manager2 = PerspectiveManager()
 
@@ -191,21 +170,16 @@ class TestAsync(object):
 
     def test_async_multiple_managers_delayed_process(self):
         from time import sleep
-        short_delay_queue_process = partial(queue_process_async_delay,
-                                            delay=0.5, loop=TestAsync.loop)
-        long_delay_queue_process = partial(queue_process_async_delay,
-                                           delay=1, loop=TestAsync.loop)
 
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
-        tbl2 = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        short_delay_queue_process = partial(
+            queue_process_async_delay, delay=0.5, loop=TestAsync.loop
+        )
+        long_delay_queue_process = partial(
+            queue_process_async_delay, delay=1, loop=TestAsync.loop
+        )
+
+        tbl = Table({"a": int, "b": float, "c": str})
+        tbl2 = Table({"a": int, "b": float, "c": str})
         manager = PerspectiveManager()
         manager2 = PerspectiveManager()
 
@@ -241,27 +215,15 @@ class TestAsync(object):
         tbl.delete()
 
     def test_async_queue_process_multiple_ports(self):
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl = Table({"a": int, "b": float, "c": str})
 
         port_ids = [0]
-        port_data = [{
-            "a": 0,
-            "b": 0,
-            "c": "0"
-        }]
+        port_data = [{"a": 0, "b": 0, "c": "0"}]
 
         for i in range(10):
             port_id = tbl.make_port()
             port_ids.append(port_id)
-            port_data.append({
-                "a": port_id,
-                "b": port_id * 1.5,
-                "c": str(port_id)
-            })
+            port_data.append({"a": port_id, "b": port_id * 1.5, "c": str(port_id)})
 
         assert port_ids == list(range(0, 11))
 
@@ -283,24 +245,12 @@ class TestAsync(object):
         tbl.delete()
 
     def test_async_multiple_managers_queue_process_multiple_ports(self):
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl = Table({"a": int, "b": float, "c": str})
 
-        tbl2 = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl2 = Table({"a": int, "b": float, "c": str})
 
         port_ids = [0]
-        port_data = [{
-            "a": 0,
-            "b": 0,
-            "c": "0"
-        }]
+        port_data = [{"a": 0, "b": 0, "c": "0"}]
 
         for i in range(10):
             port_id = tbl.make_port()
@@ -309,11 +259,7 @@ class TestAsync(object):
             assert port_id == port_id2
 
             port_ids.append(port_id)
-            port_data.append({
-                "a": port_id,
-                "b": port_id * 1.5,
-                "c": str(port_id)
-            })
+            port_data.append({"a": port_id, "b": port_id * 1.5, "c": str(port_id)})
 
         manager = PerspectiveManager()
         manager2 = PerspectiveManager()
@@ -342,24 +288,12 @@ class TestAsync(object):
             SENTINEL_2.set(SENTINEL_2.get() - 1)
             state_manager.call_process(table_id)
 
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl = Table({"a": int, "b": float, "c": str})
 
-        tbl2 = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        tbl2 = Table({"a": int, "b": float, "c": str})
 
         port_ids = [0]
-        port_data = [{
-            "a": 0,
-            "b": 0,
-            "c": "0"
-        }]
+        port_data = [{"a": 0, "b": 0, "c": "0"}]
 
         for i in range(10):
             port_id = tbl.make_port()
@@ -368,11 +302,7 @@ class TestAsync(object):
             assert port_id == port_id2
 
             port_ids.append(port_id)
-            port_data.append({
-                "a": port_id,
-                "b": port_id * 1.5,
-                "c": str(port_id)
-            })
+            port_data.append({"a": port_id, "b": port_id * 1.5, "c": str(port_id)})
 
         manager = PerspectiveManager()
         manager2 = PerspectiveManager()
@@ -399,21 +329,16 @@ class TestAsync(object):
 
     def test_async_multiple_managers_delayed_process_multiple_ports(self):
         from time import sleep
-        short_delay_queue_process = partial(queue_process_async_delay,
-                                            delay=0.5, loop=TestAsync.loop)
-        long_delay_queue_process = partial(queue_process_async_delay,
-                                           delay=1, loop=TestAsync.loop)
 
-        tbl = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
-        tbl2 = Table({
-            "a": int,
-            "b": float,
-            "c": str
-        })
+        short_delay_queue_process = partial(
+            queue_process_async_delay, delay=0.5, loop=TestAsync.loop
+        )
+        long_delay_queue_process = partial(
+            queue_process_async_delay, delay=1, loop=TestAsync.loop
+        )
+
+        tbl = Table({"a": int, "b": float, "c": str})
+        tbl2 = Table({"a": int, "b": float, "c": str})
         manager = PerspectiveManager()
         manager2 = PerspectiveManager()
 

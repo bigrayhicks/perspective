@@ -69,7 +69,7 @@ try {
         // pip install in-place with --no-clean so that pep-518 assets stick
         // around for later wheel build (so cmake cache can stay in place)
         //
-        // lint the folder with flake8
+        // lint the folder with black
         //
         // pytest the client first (since we need to move the shared libraries out of place
         // temporarily to simulate them not being installed)
@@ -78,14 +78,14 @@ try {
         cmd =
             cmd +
             `${PYTHON} -m pip install -vv -e .[dev] --no-clean && \
-            ${PYTHON} -m flake8 perspective && echo OK && \
+            ${PYTHON} -m black --check perspective && echo OK && \
             ${PYTHON} -m pytest -vvv --noconftest perspective/tests/client && \
             ${PYTHON} -m pytest -vvv perspective \
             --ignore=perspective/tests/client \
             --junitxml=python_junit.xml --cov-report=xml --cov-branch \
             --cov=perspective`;
         if (IMAGE == "python") {
-            // test the sdist to make sure we dont 
+            // test the sdist to make sure we dont
             // dist a non-functioning source dist
             cmd =
                 cmd +

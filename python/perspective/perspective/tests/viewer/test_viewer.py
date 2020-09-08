@@ -12,7 +12,6 @@ from perspective import PerspectiveViewer, Table
 
 
 class TestViewer:
-
     def test_viewer_get_table(self):
         table = Table({"a": [1, 2, 3]})
         viewer = PerspectiveViewer()
@@ -26,9 +25,7 @@ class TestViewer:
         viewer = PerspectiveViewer(filters=[["a", "==", 2]])
         viewer.load(table)
         viewer._new_view()
-        assert viewer.view.to_dict() == {
-            "a": [2]
-        }
+        assert viewer.view.to_dict() == {"a": [2]}
 
     def test_viewer_make_view_none(self):
         table = Table({"a": [1, 2, 3]})
@@ -42,14 +39,10 @@ class TestViewer:
         viewer = PerspectiveViewer(filters=[["a", "==", 2]])
         viewer.load(table)
         viewer._new_view()
-        assert viewer.view.to_dict() == {
-            "a": [2]
-        }
+        assert viewer.view.to_dict() == {"a": [2]}
         viewer.filters = []
         viewer._new_view()
-        assert viewer.view.to_dict() == {
-            "a": [1, 2, 3]
-        }
+        assert viewer.view.to_dict() == {"a": [1, 2, 3]}
 
     # loading
 
@@ -80,12 +73,7 @@ class TestViewer:
 
     def test_viewer_load_schema(self):
         viewer = PerspectiveViewer()
-        viewer.load({
-            "a": str,
-            "b": int,
-            "c": bool,
-            "d": str
-        })
+        viewer.load({"a": str, "b": int, "c": bool, "d": str})
         for col in viewer.columns:
             assert col in ["a", "b", "c", "d"]
 
@@ -148,9 +136,7 @@ class TestViewer:
         viewer.update({"a": [4, 5, 6]})
         assert table.size() == 6
         assert viewer.table.size() == 6
-        assert viewer.table.view().to_dict() == {
-            "a": [1, 2, 3, 4, 5, 6]
-        }
+        assert viewer.table.view().to_dict() == {"a": [1, 2, 3, 4, 5, 6]}
 
     def test_viewer_update_list(self):
         table = Table({"a": [1, 2, 3]})
@@ -159,9 +145,7 @@ class TestViewer:
         viewer.update([{"a": 4}, {"a": 5}, {"a": 6}])
         assert table.size() == 6
         assert viewer.table.size() == 6
-        assert viewer.table.view().to_dict() == {
-            "a": [1, 2, 3, 4, 5, 6]
-        }
+        assert viewer.table.view().to_dict() == {"a": [1, 2, 3, 4, 5, 6]}
 
     def test_viewer_update_df(self):
         table = Table({"a": [1, 2, 3]})
@@ -170,9 +154,7 @@ class TestViewer:
         viewer.update(pd.DataFrame({"a": [4, 5, 6]}))
         assert table.size() == 6
         assert viewer.table.size() == 6
-        assert viewer.table.view().to_dict() == {
-            "a": [1, 2, 3, 4, 5, 6]
-        }
+        assert viewer.table.view().to_dict() == {"a": [1, 2, 3, 4, 5, 6]}
 
     def test_viewer_update_dict_partial(self):
         table = Table({"a": [1, 2, 3], "b": [5, 6, 7]}, index="a")
@@ -181,10 +163,7 @@ class TestViewer:
         viewer.update({"a": [1, 2, 3], "b": [8, 9, 10]})
         assert table.size() == 3
         assert viewer.table.size() == 3
-        assert viewer.table.view().to_dict() == {
-            "a": [1, 2, 3],
-            "b": [8, 9, 10]
-        }
+        assert viewer.table.view().to_dict() == {"a": [1, 2, 3], "b": [8, 9, 10]}
 
     # clear
 
@@ -194,9 +173,7 @@ class TestViewer:
         viewer.load(table)
         viewer.clear()
         assert viewer.table.size() == 0
-        assert viewer.table.schema() == {
-            "a": int
-        }
+        assert viewer.table.schema() == {"a": int}
 
     # replace
 
@@ -206,12 +183,8 @@ class TestViewer:
         viewer.load(table)
         viewer.replace({"a": [4, 5, 6]})
         assert viewer.table.size() == 3
-        assert viewer.table.schema() == {
-            "a": int
-        }
-        assert viewer.table.view().to_dict() == {
-            "a": [4, 5, 6]
-        }
+        assert viewer.table.schema() == {"a": int}
+        assert viewer.table.view().to_dict() == {"a": [4, 5, 6]}
 
     # reset
 

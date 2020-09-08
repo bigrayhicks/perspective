@@ -22,7 +22,7 @@ import sys
 import os.path
 import subprocess
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # -- General configuration ------------------------------------------------
 
@@ -33,32 +33,37 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.coverage', 'sphinx.ext.viewcode', 'sphinx.ext.napoleon', "sphinx.ext.autosummary"]
+extensions = [
+    "sphinx.ext.coverage",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autosummary",
+]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 
 # The master toctree document.
-master_doc = 'perspective-python'
+master_doc = "perspective-python"
 
 # General information about the project.
-project = 'perspective-python'
-copyright = '2019 Perspective Authors'
-author = 'Perspective Authors'
+project = "perspective-python"
+copyright = "2019 Perspective Authors"
+author = "Perspective Authors"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
-_version_py = os.path.join('..', 'perspective', 'core', '_version.py')	
-version_ns = {}	
+_version_py = os.path.join("..", "perspective", "core", "_version.py")
+version_ns = {}
 
-with open(_version_py, mode='r') as version_file:	
+with open(_version_py, mode="r") as version_file:
     exec(version_file.read(), version_ns)
 
 # The short X.Y version.
@@ -76,16 +81,16 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
 # Order autodoc by source code
-autodoc_member_order = 'bysource'
+autodoc_member_order = "bysource"
 
 # Napoleon
 napoleon_google_docstring = True
@@ -101,7 +106,7 @@ exclude_patterns = ["perspective.node.rst"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = "alabaster"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -120,9 +125,9 @@ html_theme = 'alabaster'
 # This is required for the alabaster theme
 # refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
 html_sidebars = {
-    '**': [
-        'relations.html',  # needs 'show_related': True theme option to display
-        'searchbox.html',
+    "**": [
+        "relations.html",  # needs 'show_related': True theme option to display
+        "searchbox.html",
     ]
 }
 
@@ -130,7 +135,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'perspectivedoc'
+htmlhelp_basename = "perspectivedoc"
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -139,15 +144,12 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #
     # 'preamble': '',
-
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
@@ -157,8 +159,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'perspective.tex', 'perspective Documentation',
-     'Tim Paine', 'manual'),
+    (master_doc, "perspective.tex", "perspective Documentation", "Tim Paine", "manual"),
 ]
 
 
@@ -166,10 +167,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'perspective', 'perspective Documentation',
-     [author], 1)
-]
+man_pages = [(master_doc, "perspective", "perspective Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output -------------------------------------------
@@ -178,27 +176,39 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'perspective', 'perspective Documentation',
-     author, 'perspective', 'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc,
+        "perspective",
+        "perspective Documentation",
+        author,
+        "perspective",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]
 
 
 def run_apidoc(_):
     out_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-    psp_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'perspective'))
-    cmd_path = 'sphinx-apidoc'
-    if hasattr(sys, 'real_prefix'):  # Check to see if we are in a virtualenv
+    psp_dir = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "perspective")
+    )
+    cmd_path = "sphinx-apidoc"
+    if hasattr(sys, "real_prefix"):  # Check to see if we are in a virtualenv
         # If we are, assemble the path manually
-        cmd_path = os.path.abspath(os.path.join(sys.prefix, 'bin', 'sphinx-apidoc'))
-    subprocess.check_call([cmd_path,
-                           '-E',
-                           '-M',
-                           '-o',
-                           out_dir,
-                           psp_dir,
-                           '--tocfile perspective-python',
-                           '--force'])
+        cmd_path = os.path.abspath(os.path.join(sys.prefix, "bin", "sphinx-apidoc"))
+    subprocess.check_call(
+        [
+            cmd_path,
+            "-E",
+            "-M",
+            "-o",
+            out_dir,
+            psp_dir,
+            "--tocfile perspective-python",
+            "--force",
+        ]
+    )
 
 
 def setup(app):

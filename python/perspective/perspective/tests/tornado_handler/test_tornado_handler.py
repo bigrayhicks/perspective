@@ -58,9 +58,7 @@ class TestPerspectiveTornadoHandler(object):
 
         If the initialization response is incorrect, raise an `AssertionError`.
         """
-        client = yield websocket_connect(
-            "ws://127.0.0.1:{0}/websocket".format(port)
-        )
+        client = yield websocket_connect("ws://127.0.0.1:{0}/websocket".format(port))
 
         yield client.write_message(json.dumps({"id": -1, "cmd": "init"}))
 
@@ -104,18 +102,11 @@ class TestPerspectiveTornadoHandler(object):
 
         assert json.loads(response) == {
             "id": 0,
-            "data": {
-                "a": "integer",
-                "b": "float",
-                "c": "string",
-                "d": "datetime",
-            },
+            "data": {"a": "integer", "b": "float", "c": "string", "d": "datetime",},
         }
 
     @pytest.mark.gen_test(run_sync=False)
-    def test_tornado_handler_create_view_to_dict(
-        self, app, http_client, http_port
-    ):
+    def test_tornado_handler_create_view_to_dict(self, app, http_client, http_port):
         table_name = str(random.random())
         table = Table(data)
         MANAGER.host_table(table_name, table)
@@ -147,9 +138,7 @@ class TestPerspectiveTornadoHandler(object):
 
         response = yield client.read_message()
 
-        assert response == json.dumps(
-            {"id": 1, "data": data}, cls=DateTimeEncoder
-        )
+        assert response == json.dumps({"id": 1, "data": data}, cls=DateTimeEncoder)
 
     @pytest.mark.gen_test(run_sync=False)
     def test_tornado_handler_create_view_to_dict_one_sided(
@@ -168,9 +157,7 @@ class TestPerspectiveTornadoHandler(object):
                     "cmd": "view",
                     "table_name": table_name,
                     "view_name": "view1",
-                    "config": {
-                        "row_pivots": ["c"]
-                    }
+                    "config": {"row_pivots": ["c"]},
                 }
             )
         )
@@ -198,14 +185,13 @@ class TestPerspectiveTornadoHandler(object):
                     "b": [sum(data["b"])] + data["b"],
                     "c": [10] + [1 for i in range(10)],
                     "d": [10] + [1 for i in range(10)],
-                }
-            }, cls=DateTimeEncoder
+                },
+            },
+            cls=DateTimeEncoder,
         )
 
     @pytest.mark.gen_test(run_sync=False)
-    def test_tornado_handler_create_view_to_arrow(
-        self, app, http_client, http_port
-    ):
+    def test_tornado_handler_create_view_to_arrow(self, app, http_client, http_port):
         table_name = str(random.random())
         table = Table(data)
         MANAGER.host_table(table_name, table)
@@ -243,7 +229,7 @@ class TestPerspectiveTornadoHandler(object):
             "cmd": "view_method",
             "method": "to_arrow",
             "args": [],
-            "is_transferable": True
+            "is_transferable": True,
         }
 
         binary = yield client.read_message()

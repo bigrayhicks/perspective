@@ -15,12 +15,11 @@ from perspective import PerspectiveError, PerspectiveWidget, Table
 
 
 def mock_post(self, msg, msg_id=None, assert_msg=None):
-    '''Mock the widget's `post()` method so we can introspect the contents.'''
+    """Mock the widget's `post()` method so we can introspect the contents."""
     assert msg == assert_msg
 
 
 class TestWidget:
-
     def test_widget(self):
         data = {"a": np.arange(0, 50)}
         widget = PerspectiveWidget(data, plugin="x_bar")
@@ -32,14 +31,7 @@ class TestWidget:
         assert widget.row_pivots == ["a"]
 
     def test_widget_schema(self):
-        schema = {
-            "a": int,
-            "b": float,
-            "c": bool,
-            "d": date,
-            "e": datetime,
-            "f": str
-        }
+        schema = {"a": int, "b": float, "c": bool, "d": date, "e": datetime, "f": str}
         widget = PerspectiveWidget(schema)
         assert widget.table.schema() == schema
 
@@ -102,9 +94,7 @@ class TestWidget:
     def test_widget_delete(self):
         data = {"a": np.arange(0, 50)}
         widget = PerspectiveWidget(data)
-        mocked_post = partial(mock_post, assert_msg={
-            "cmd": "delete"
-        })
+        mocked_post = partial(mock_post, assert_msg={"cmd": "delete"})
         widget.post = MethodType(mocked_post, widget)
         widget.delete()
         assert widget.table is None
